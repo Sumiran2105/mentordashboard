@@ -327,30 +327,31 @@ const mentorSlice = createSlice({
       convo.lastMessage = text;
       convo.updatedAt = new Date().toISOString();
     },
+
+    addDiscussionReply: (state, action) => {
+      const { discussionId, text } = action.payload;
+
+      const discussion = state.discussions.find(
+        (d) => d.id === discussionId
+      );
+
+      if (!discussion) return;
+
+      discussion.replies.push({
+        id: Date.now(),
+        sender: "mentor",
+        text,
+        createdAt: new Date().toISOString(),
+      });
+    },
+
+    updateMentorProfile: (state, action) => {
+      state.mentorInfo = {
+        ...state.mentorInfo,
+        ...action.payload,
+      };
+    },
   },
-  addDiscussionReply: (state, action) => {
-  const { discussionId, text } = action.payload;
-
-  const discussion = state.discussions.find(
-    (d) => d.id === discussionId
-  );
-
-  if (!discussion) return;
-
-  discussion.replies.push({
-    id: Date.now(),
-    sender: "mentor",
-    text,
-    createdAt: new Date().toISOString(),
-  });
-},
-updateMentorProfile: (state, action) => {
-  state.mentorInfo = {
-    ...state.mentorInfo,
-    ...action.payload,
-  };
-},
-
 });
 
 /* =========================

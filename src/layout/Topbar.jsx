@@ -1,8 +1,10 @@
 import { Menu, Bell, MessageSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Topbar = ({ title, onMenuClick }) => {
   const navigate = useNavigate();
+  const mentor = useSelector((state) => state.mentor.mentorInfo);
 
   return (
     <header className="h-16 bg-white border-b flex items-center justify-between px-4 md:px-8">
@@ -26,9 +28,10 @@ const Topbar = ({ title, onMenuClick }) => {
           <Bell size={18} />
         </button>
         <img
-          src="https://i.pravatar.cc/40"
+          src={mentor.avatar}
           alt="profile"
           className="w-9 h-9 rounded-full"
+          title={mentor.name}
         />
       </div>
     </header>

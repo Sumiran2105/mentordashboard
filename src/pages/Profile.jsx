@@ -10,6 +10,21 @@ const MentorProfile = () => {
   const mentor = useSelector((state) => state.mentor.mentorInfo);
 
   const [activeTab, setActiveTab] = useState("Profile Details");
+  const [previewAvatar, setPreviewAvatar] = useState(mentor.avatar);
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Create a preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const result = reader.result;
+      setPreviewAvatar(result);
+      dispatch(updateMentorProfile({ avatar: result }));
+    };
+    reader.readAsDataURL(file);
+  };
 
   return (
     <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm max-w-4xl">
@@ -27,16 +42,24 @@ const MentorProfile = () => {
       <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center mb-10">
         <div className="relative">
           <img
-            src={mentor.avatar}
+            src={previewAvatar}
             alt="Mentor"
             className="w-24 h-24 rounded-full object-cover border"
           />
-          <button
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleAvatarChange}
+            className="hidden"
+            id="avatar-upload"
+          />
+          <label
+            htmlFor="avatar-upload"
             title="Change avatar"
-            className="absolute -bottom-1 -right-1 bg-indigo-600 hover:bg-indigo-700 text-white p-2 rounded-full shadow"
+            className="absolute -bottom-1 -right-1 bg-indigo-600 hover:bg-indigo-700 text-white p-2 rounded-full shadow cursor-pointer transition"
           >
             <Camera size={14} />
-          </button>
+          </label>
         </div>
 
         <div>
