@@ -2,10 +2,12 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { selectStudents } from "../../features/mentor/mentorSelectors";
+import { Grid3x3, List } from "lucide-react";
 
 const StudentTable = ({ search = "", batch = "All" }) => {
   const students = useSelector(selectStudents);
   const [toast, setToast] = useState({ show: false, message: "" });
+  const [viewMode, setViewMode] = useState("table"); // "table" or "card"
 
   const handleSendMessage = (s) => {
     setToast({ show: true, message: `Message sent successfully to ${s.name}` });
@@ -40,6 +42,32 @@ const StudentTable = ({ search = "", batch = "All" }) => {
           </div>
         </div>
       )}
+
+      {/* View Toggle (Desktop only) */}
+      <div className="hidden md:flex justify-end mb-4 gap-2">
+        <button
+          onClick={() => setViewMode("table")}
+          className={`p-2 rounded-lg transition ${
+            viewMode === "table"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+          }`}
+          title="Table view"
+        >
+          <List size={20} />
+        </button>
+        <button
+          onClick={() => setViewMode("card")}
+          className={`p-2 rounded-lg transition ${
+            viewMode === "card"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200 text-gray-600 hover:bg-gray-300"
+          }`}
+          title="Card view"
+        >
+          <Grid3x3 size={20} />
+        </button>
+      </div>
 
       {/* =======================
           MOBILE CARDS
@@ -95,9 +123,11 @@ const StudentTable = ({ search = "", batch = "All" }) => {
       </div>
 
       {/* =======================
-          DESKTOP TABLE
+          DESKTOP VIEWS
       ======================== */}
-      <div className="hidden md:block bg-white/90 backdrop-blur rounded-2xl border overflow-x-auto">
+      {viewMode === "table" ? (
+        // TABLE VIEW
+        <div className="hidden md:block bg-white/90 backdrop-blur rounded-2xl border overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="bg-gradient-to-r from-blue-50 to-purple-50 text-gray-700">
             <tr>
@@ -157,7 +187,64 @@ const StudentTable = ({ search = "", batch = "All" }) => {
             ))}
           </tbody>
         </table>
-      </div>
+        </div>
+      ) : (
+        // CARD VIEW
+        <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredStudents.map((s) => (
+            <div
+              key={s.id}
+              className="bg-white rounded-xl border p-6 space-y-4 hover:shadow-lg transition"
+            >
+              {/* Header */}
+              <div className="text-center">
+                <p className="font-semibold text-lg">{s.name}</p>
+                <p className="text-xs text-gray-500">{s.email}</p>
+                <p className="text-xs text-gray-500">{s.phone}</p>
+              </div>
+
+              {/* Parent */}
+              <div className="text-xs bg-gray-50 p-3 rounded">
+                <p className="font-medium">Parent</p>
+                <p className="text-gray-600">
+                  {s.parentName}
+                </p>
+                <p className="text-gray-600">{s.parentPhone}</p>
+              </div>
+
+              {/* Scores */}
+              <div className="space-y-3">
+                <ProgressBar score={s.assignmentScore} label="Assignment" />
+                <ProgressBar score={s.quizScore} label="Quiz" />
+              </div>
+
+              {/* Status */}
+              <div className="pt-2 border-t">
+                <StatusBadge
+                  assignment={s.assignmentScore}
+                  quiz={s.quizScore}
+                />
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-3 pt-2">
+                <Link
+                  to={`/students/${s.id}`}
+                  className="flex-1 text-center bg-blue-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition"
+                >
+                  View Profile
+                </Link>
+                <button 
+                  onClick={() => handleSendMessage(s)} 
+                  className="flex-1 text-center bg-gray-200 text-gray-700 py-2 rounded-lg text-sm font-medium hover:bg-gray-300 transition"
+                >
+                  Message
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 };

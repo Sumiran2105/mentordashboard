@@ -11,6 +11,7 @@ const initialState = {
     avatar: "https://i.pravatar.cc/100",
     phone: "+91 98765 43210",
     email: "tMx5p@example.com",
+    gender: "Male",
   },
 
   /* =========================

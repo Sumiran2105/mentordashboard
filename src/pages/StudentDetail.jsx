@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ArrowLeft, Send } from "lucide-react";
 import { useState } from "react";
+import WeeklyAssignments from "../components/students/WeeklyAssignments";
 
 const StudentDetail = () => {
   const { studentId } = useParams();
@@ -105,61 +106,12 @@ const StudentDetail = () => {
       </div>
 
       {/* ======================
-          WEEKLY ASSIGNMENTS
+          WEEKLY ASSIGNMENTS & QUIZZES (TABBED)
       ====================== */}
-      <div className="bg-white rounded-xl border p-6">
-        <h3 className="font-semibold mb-4">
-          Weekly Assignments
-        </h3>
-
-        <div className="space-y-3">
-          {student.weeklyAssignments.map((a, idx) => (
-            <div
-              key={idx}
-              className="flex justify-between items-center border rounded-lg p-3"
-            >
-              <div>
-                <p className="font-medium text-sm">
-                  {a.week} – {a.title}
-                </p>
-                <p className="text-xs text-gray-500">
-                  Status: {a.status}
-                </p>
-              </div>
-
-              <span className="text-sm font-semibold">
-                {a.score !== null ? `${a.score}%` : "—"}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ======================
-          WEEKLY QUIZZES
-      ====================== */}
-      <div className="bg-white rounded-xl border p-6">
-        <h3 className="font-semibold mb-4">
-          Weekly Quizzes
-        </h3>
-
-        <div className="space-y-3">
-          {student.weeklyQuizzes.map((q, idx) => (
-            <div
-              key={idx}
-              className="flex justify-between items-center border rounded-lg p-3"
-            >
-              <p className="font-medium text-sm">
-                {q.week}
-              </p>
-
-              <span className="text-sm font-semibold">
-                {q.score > 0 ? `${q.score}%` : "—"}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
+      <WeeklyAssignments 
+        assignments={student.weeklyAssignments}
+        quizzes={student.weeklyQuizzes}
+      />
     </div>
   );
 };

@@ -105,19 +105,13 @@ const Sidebar = ({ isOpen, onClose }) => {
               Account
             </p>
 
-            <NavItem to="/settings/profile" icon={User} label="Settings" onClick={onClose} />
+            <NavItem to="/settings/profile" icon={User} label="Profile" onClick={onClose} />
             <NavItem to="/settings/security" icon={Shield} label="Logout" danger onClick={onClose} />
           </nav>
         </div>
 
         {/* Bottom Illustration */}
-        <div className="p-4">
-          <img
-            src="/assets/laptop.png"
-            alt="learning"
-            className="w-50 mx-auto"
-          />
-        </div>
+        
       </motion.aside>
     </>
   );

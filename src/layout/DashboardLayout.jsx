@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "../layout/Sidebar";
-import Topbar from "../layout/Topbar";
+import { Menu } from "lucide-react";
 
 const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -16,8 +16,15 @@ const DashboardLayout = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
-        {/* Topbar (hidden on mobile handled inside Topbar) */}
-        <Topbar onMenuClick={() => setSidebarOpen(true)} />
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center p-4 bg-white border-b">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 hover:bg-gray-100 rounded-lg"
+          >
+            <Menu size={24} />
+          </button>
+        </div>
 
         {/* PAGE CONTENT (THIS WAS MISSING / BROKEN) */}
         <main className="flex-1 overflow-y-auto p-6">

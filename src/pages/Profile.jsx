@@ -111,6 +111,15 @@ const MentorProfile = () => {
             }
           />
 
+          <SelectableField
+            label="Gender"
+            value={mentor.gender}
+            options={["Male", "Female", "Other"]}
+            onSave={(val) =>
+              dispatch(updateMentorProfile({ gender: val }))
+            }
+          />
+
           <ReadOnlyField label="Role" value={mentor.role} />
           <ReadOnlyField label="Mentor ID" value={mentor.id} />
         </div>
@@ -165,6 +174,53 @@ const EditableField = ({ label, value, onSave }) => {
           className="mt-1 w-full border-2 border-indigo-300 rounded-lg px-3 py-2 text-gray-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white"
           autoFocus
         />
+      ) : (
+        <p className="font-medium text-gray-800 mt-1">
+          {value || "—"}
+        </p>
+      )}
+
+      <button
+        onClick={() => (editing ? handleSave() : setEditing(true))}
+        className="absolute top-4 right-4 text-indigo-500 hover:text-indigo-700"
+      >
+        {editing ? <Check size={16} /> : <Pencil size={16} />}
+      </button>
+    </div>
+  );
+};
+
+/* ================= Selectable Field ================= */
+
+const SelectableField = ({ label, value, options, onSave }) => {
+  const [editing, setEditing] = useState(false);
+  const [tempValue, setTempValue] = useState(value || "");
+
+  const handleSave = () => {
+    if (tempValue.trim()) {
+      onSave(tempValue.trim());
+    }
+    setEditing(false);
+  };
+
+  return (
+    <div className="relative border rounded-xl p-4 bg-gray-50">
+      <p className="text-sm text-gray-500">{label}</p>
+
+      {editing ? (
+        <select
+          value={tempValue}
+          onChange={(e) => setTempValue(e.target.value)}
+          onBlur={handleSave}
+          className="mt-1 w-full border-2 border-indigo-300 rounded-lg px-3 py-2 text-gray-800 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white"
+          autoFocus
+        >
+          {options.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </select>
       ) : (
         <p className="font-medium text-gray-800 mt-1">
           {value || "—"}
