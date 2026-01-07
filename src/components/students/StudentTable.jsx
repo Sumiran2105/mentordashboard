@@ -141,7 +141,7 @@ const StudentTable = ({ search = "", batch = "All" }) => {
                   />
                 </td>
                 <td className="p-4 text-center">
-                  <div className="flex justify-center gap-4 opacity-0 group-hover:opacity-100 transition">
+                  <div className="flex justify-center gap-4 ">
                     <Link
                       to={`/students/${s.id}`}
                       className="text-blue-600 text-xs font-medium hover:underline"
