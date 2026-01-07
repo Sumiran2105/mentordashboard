@@ -2,14 +2,18 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectStudents } from "../../features/mentor/mentorSelectors";
 
-const StudentTable = ({ search = "" }) => {
+const StudentTable = ({ search = "", batch = "All" }) => {
   const students = useSelector(selectStudents);
 
-  const filteredStudents = students.filter(
-    (s) =>
+  const filteredStudents = students.filter((s) => {
+    const matchesSearch =
       s.name.toLowerCase().includes(search.toLowerCase()) ||
-      s.email.toLowerCase().includes(search.toLowerCase())
-  );
+      s.email.toLowerCase().includes(search.toLowerCase());
+
+    const matchesBatch = batch === "All" || s.batch === batch;
+
+    return matchesSearch && matchesBatch;
+  });
 
   if (filteredStudents.length === 0) {
     return (

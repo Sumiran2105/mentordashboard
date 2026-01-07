@@ -75,6 +75,7 @@ const initialState = {
       phone: "9876543210",
       parentName: "Rajesh Mehta",
       parentPhone: "9876500000",
+      batch: "Batch 1",
 
       assignmentScore: 85,
       quizScore: 78,
@@ -98,6 +99,7 @@ const initialState = {
       phone: "9898989898",
       parentName: "Suresh Sharma",
       parentPhone: "9898900000",
+      batch: "Batch 2",
 
       assignmentScore: 92,
       quizScore: 88,

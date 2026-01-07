@@ -6,7 +6,7 @@ import DashboardLayout from "./layout/DashboardLayout";
 import MentorDashboard from "./pages/MentorDashboard";
 import Students from "./pages/Students";
 import StudentDetail from "./pages/StudentDetail";
-import Messages from "./pages/Messages";
+import LiveSessions from "./pages/LiveSessions";
 import Calendar from "./pages/Calendar";
 import InfoSessions from "./pages/InfoSessions";
 import Notifications from "./pages/Notifications";
@@ -31,7 +31,7 @@ function App() {
           <Route path="students/:studentId" element={<StudentDetail />} />
 
           {/* Communication */}
-          <Route path="messages" element={<Messages />} />
+          <Route path="messages" element={<LiveSessions />} />
           <Route path="discussions" element={<Discussions />} />
           <Route path="notifications" element={<Notifications />} />
 

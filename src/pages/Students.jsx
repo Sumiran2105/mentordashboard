@@ -4,6 +4,9 @@ import StudentTable from "../components/students/StudentTable";
 
 const Students = () => {
   const [search, setSearch] = useState("");
+  const [selectedBatch, setSelectedBatch] = useState("All");
+
+  const batches = ["All", "Batch 1", "Batch 2", "Batch 3", "Batch 4"];
 
   return (
     <div className="space-y-6 md:space-y-8">
@@ -51,6 +54,18 @@ const Students = () => {
 
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          {/* Batch Filter */}
+          <select 
+            value={selectedBatch} 
+            onChange={(e) => setSelectedBatch(e.target.value)}
+            className="border rounded-full px-4 py-2 text-sm w-full sm:w-auto">
+            {batches.map((batch) => (
+              <option key={batch} value={batch}>
+                {batch}
+              </option>
+            ))}
+          </select>
+
           <select className="border rounded-full px-4 py-2 text-sm w-full sm:w-auto">
             <option>All</option>
             <option>On Track</option>
@@ -66,7 +81,7 @@ const Students = () => {
       </div>
 
       {/* Table */}
-      <StudentTable search={search} />
+      <StudentTable search={search} batch={selectedBatch} />
     </div>
   );
 };

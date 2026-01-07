@@ -71,18 +71,18 @@ const Sidebar = ({ isOpen, onClose }) => {
           <nav className="space-y-2 text-sm">
             <NavItem to="/" icon={LayoutDashboard} label="Dashboard" onClick={onClose} />
             <NavItem to="/students" icon={Users} label="Students" onClick={onClose} />
-            <NavItem to="/messages" icon={MessageSquare} label="Messages" badge="2" onClick={onClose} />
+            <NavItem to="/messages" icon={Video} label="Live Sessions" badge="2" onClick={onClose} />
             <NavItem to="/discussions" icon={MessagesSquare} label="Discussions" onClick={onClose} />
             <NavItem to="/notifications" icon={Bell} label="Notifications" onClick={onClose} />
             <NavItem to="/calendar" icon={Calendar} label="Calendar" onClick={onClose} />
-            <NavItem to="/info-sessions" icon={Video} label="Info Sessions" onClick={onClose} />
+            <NavItem to="/info-sessions" icon={MessageSquare} label="Info Sessions" onClick={onClose} />
 
             <div className="mt-6 text-xs uppercase text-white/50">
               Account
             </div>
 
             <NavItem to="/settings/profile" icon={User} label="Personal Info" onClick={onClose} />
-            <NavItem to="/settings/security" icon={Shield} label="Login & Security" onClick={onClose} />
+            <NavItem to="/settings/security" icon={Shield} label="Logout" onClick={onClose} />
           </nav>
         </div>
       </aside>
