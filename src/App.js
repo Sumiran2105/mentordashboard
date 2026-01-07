@@ -1,24 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import DashboardLayout from "./layout/DashboardLayout";
+
+/* Pages */
+import MentorDashboard from "./pages/MentorDashboard";
+import Students from "./pages/Students";
+import StudentDetail from "./pages/StudentDetail";
+import Messages from "./pages/Messages";
+import Calendar from "./pages/Calendar";
+import InfoSessions from "./pages/InfoSessions";
+import Notifications from "./pages/Notifications";
+import Discussions from "./pages/Discussions";
+import Profile from "./pages/Profile";
+import Security from "./pages/Security";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* =========================
+           Dashboard Layout
+        ========================== */}
+        <Route element={<DashboardLayout />}>
+          
+          {/* Dashboard */}
+          <Route index element={<MentorDashboard />} />
+
+          {/* Students */}
+          <Route path="students" element={<Students />} />
+          <Route path="students/:studentId" element={<StudentDetail />} />
+
+          {/* Communication */}
+          <Route path="messages" element={<Messages />} />
+          <Route path="discussions" element={<Discussions />} />
+          <Route path="notifications" element={<Notifications />} />
+
+          {/* Calendar & Sessions */}
+          <Route path="calendar" element={<Calendar />} />
+          <Route path="info-sessions" element={<InfoSessions />} />
+
+          {/* Account Settings */}
+          <Route path="settings/profile" element={<Profile />} />
+          <Route path="settings/security" element={<Security />} />
+        </Route>
+
+    
+      </Routes>
+    </BrowserRouter>
   );
 }
 
