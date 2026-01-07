@@ -1,9 +1,16 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { selectStudents } from "../../features/mentor/mentorSelectors";
 
 const StudentTable = ({ search = "", batch = "All" }) => {
   const students = useSelector(selectStudents);
+  const [toast, setToast] = useState({ show: false, message: "" });
+
+  const handleSendMessage = (s) => {
+    setToast({ show: true, message: `Message sent successfully to ${s.name}` });
+    setTimeout(() => setToast({ show: false, message: "" }), 3000);
+  };
 
   const filteredStudents = students.filter((s) => {
     const matchesSearch =
@@ -25,6 +32,15 @@ const StudentTable = ({ search = "", batch = "All" }) => {
 
   return (
     <>
+      {/* Toast */}
+      {toast.show && (
+        <div aria-live="polite" className="fixed right-4 bottom-6 z-50">
+          <div className="bg-green-600 text-white px-4 py-2 rounded shadow">
+            {toast.message}
+          </div>
+        </div>
+      )}
+
       {/* =======================
           MOBILE CARDS
       ======================== */}
@@ -69,7 +85,7 @@ const StudentTable = ({ search = "", batch = "All" }) => {
                 >
                   View
                 </Link>
-                <button className="text-gray-500">
+                <button onClick={() => handleSendMessage(s)} className="text-gray-500">
                   Message
                 </button>
               </div>
@@ -132,7 +148,7 @@ const StudentTable = ({ search = "", batch = "All" }) => {
                     >
                       View
                     </Link>
-                    <button className="text-gray-500 text-xs hover:text-black">
+                    <button onClick={() => handleSendMessage(s)} className="text-gray-500 text-xs hover:text-black">
                       Message
                     </button>
                   </div>
