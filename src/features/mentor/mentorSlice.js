@@ -9,6 +9,8 @@ const initialState = {
     name: "Hardik Singh",
     role: "Mentor",
     avatar: "https://i.pravatar.cc/100",
+    phone: "+91 98765 43210",
+    email: "tMx5p@example.com",
   },
 
   /* =========================
@@ -342,6 +344,12 @@ const mentorSlice = createSlice({
     createdAt: new Date().toISOString(),
   });
 },
+updateMentorProfile: (state, action) => {
+  state.mentorInfo = {
+    ...state.mentorInfo,
+    ...action.payload,
+  };
+},
 
 });
 
@@ -349,6 +357,7 @@ const mentorSlice = createSlice({
    Exports
 ========================== */
 export const {
+  updateMentorProfile,
   setCalendarView,
   nextMonth,
   prevMonth,
